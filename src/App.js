@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Header from './components/Header'
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 
 function App() {
+  const [showAdd, setShowAdd] = useState(false)
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -29,6 +31,14 @@ function App() {
       reminder: true,
     },
   ])
+
+  // Add task
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 1000) + 1
+    const newTask = { id, ...task }
+    setTasks([...tasks, newTask])
+    console.log(task);
+  }
   //delete task
   const deleteTask = (id) => setTasks(tasks.filter((t) => t.id !== id))
   // toggle reminder
@@ -37,12 +47,15 @@ function App() {
   return (
     <div className="app">
       <div className="flex justify-center">
-        <div className="w-2/3 text-gray-200">
+        <div className="w-full sm:w-5/6 md:w-2/3 lg:w-1/3 text-gray-200">
 
-          <Header title='Task Tracker' />
+          <Header title='Task Tracker' onAdd={() => setShowAdd(!showAdd)} isFormActive={showAdd === true} />
 
           <div className="my-2"></div>
+          {showAdd && <AddTask onAdd={addTask} />}
+          <div className="my-8"></div>
 
+          <hr className="border solid border-third my-8" />
           {tasks.length > 0 ?
             <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
             : 'No Tasks'}

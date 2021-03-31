@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .app {
-  @apply h-screen bg-primary p-8
+  @apply h-screen bg-primary p-8 overflow-hidden overflow-y-auto
 }
 
 .btn {
@@ -11,8 +11,16 @@
 }
 
 .task {
-  @apply border border-solid border-third rounded-md p-2 mb-3 bg-secondary
+  @apply border border-solid border-third rounded-sm p-2 mb-3 bg-secondary
 }
 .reminder {
-  @apply border-l-8 border-yellow-400
+  @apply border-l-8 border-fourth
+}
+
+input[type=text], input[type=date] {
+  @apply rounded-md border border-secondary w-full p-1 text-gray-600 font-semibold
+}
+
+input[type=check] {
+  @apply rounded-md
 }
