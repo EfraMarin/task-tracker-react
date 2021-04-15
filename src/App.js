@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
@@ -31,6 +31,13 @@ function App() {
       reminder: true,
     },
   ])
+  const [fetch, setFetch] = useState(false);
+
+  useEffect(() => {
+    if (fetch)
+      console.log('Use Effect ejecutado')
+      setFetch(false)
+  }, [fetch])
 
   // Add task
   const addTask = (task) => {
@@ -48,7 +55,7 @@ function App() {
     <div className="app">
       <div className="flex justify-center">
         <div className="w-full sm:w-5/6 md:w-2/3 lg:w-1/3 text-gray-200">
-
+          <button className="bg-gray-600 p-2 rounded-md hover:bg-gray-900" onClick={() => setFetch(true)} >Fetch</button>
           <Header title='Task Tracker' onAdd={() => setShowAdd(!showAdd)} isFormActive={showAdd === true} />
 
           <div className="my-2"></div>
